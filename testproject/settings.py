@@ -75,23 +75,23 @@ WSGI_APPLICATION = 'testproject.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': 'sqlite3',
-#     }
-# }
-
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'newsdjango',      # имя базы данных
-        'USER': 'postgres',     # имя пользователя
-        'PASSWORD': '933780548LO', # пароль пользователя
-        'HOST': 'localhost',         # или IP/домен сервера
-        'PORT': '5432',              # стандартный порт для Postgres
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'sqlite3',
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'newsdjango',      # имя базы данных
+#         'USER': 'postgres',     # имя пользователя
+#         'PASSWORD': '933780548LO', # пароль пользователя
+#         'HOST': 'localhost',         # или IP/домен сервера
+#         'PORT': '5432',              # стандартный порт для Postgres
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
