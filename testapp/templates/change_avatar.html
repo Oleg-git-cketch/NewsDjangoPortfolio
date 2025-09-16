@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}Смена аватарки{% endblock %}
+
+{% block content %}
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+  <div class="card shadow p-4 rounded-4 bg-white" style="max-width: 400px; width: 100%;">
+    <h2 class="h5 text-center mb-3 text-primary">Изменить аватарку</h2>
+
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      <div class="mb-3">
+        {{ form.user_photo.label_tag }}
+        {{ form.user_photo }}
+      </div>
+      <button type="submit" class="btn btn-primary w-100">Сохранить</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

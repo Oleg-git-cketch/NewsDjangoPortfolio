@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}{{ new.new_name }}{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="card shadow-sm">
+        {% if new.new_photo %}
+            <img src="{{ new.new_photo.url }}" class="card-img-top" alt="обложка новости" style="height:300px; object-fit:cover;">
+        {% endif %}
+        <div class="card-body">
+            <h2 class="card-title">{{ new.new_name }}</h2>
+            <p class="card-text">{{ new.new_desc }}</p>
+            <p class="text-muted">Категория:
+                <a href="/category/{{ new.new_category.category_name }}">{{ new.new_category.category_name }}</a>
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}

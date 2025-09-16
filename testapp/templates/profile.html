@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% block title %}Профиль{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white text-center">
+          <h2>{{ request.user.username }}</h2>
+        </div>
+        <div class="card-body text-center">
+
+          <!-- Аватар -->
+          {% if request.user.user_model and request.user.user_model.user_photo %}
+            <img src="{{ request.user.user_model.user_photo.url }}" width="120" height="120"
+                 class="rounded-circle border border-3 mb-3" alt="Аватар">
+          {% else %}
+            <img src="/static/default-avatar.png" width="120" height="120"
+                 class="rounded-circle border border-3 mb-3" alt="Аватар">
+          {% endif %}
+          <br>
+          <button class="btn btn-sm btn-outline-primary mb-3" onclick="toggleForm('avatar_form')">Сменить фото</button>
+          <form id="avatar_form" method="post" enctype="multipart/form-data" style="display:none;">
+            {% csrf_token %}
+            <input type="hidden" name="field" value="user_photo">
+            <input type="file" name="value" class="form-control mb-2">
+            <button type="submit" class="btn btn-success btn-sm">Сохранить</button>
+          </form>
+
+          <hr>
+
+          <!-- First name -->
+          <p><strong>First Name:</strong> {{ request.user.first_name }}
+            <button class="btn btn-sm btn-outline-primary" onclick="toggleForm('first_name_form')">Изменить</button>
+          </p>
+          <form id="first_name_form" method="post" style="display:none;">
+            {% csrf_token %}
+            <input type="hidden" name="field" value="first_name">
+            <input type="text" name="value" class="form-control mb-2" value="{{ request.user.first_name }}">
+            <button type="submit" class="btn btn-success btn-sm">Сохранить</button>
+          </form>
+
+          <!-- Last name -->
+          <p><strong>Last Name:</strong> {{ request.user.last_name }}
+            <button class="btn btn-sm btn-outline-primary" onclick="toggleForm('last_name_form')">Изменить</button>
+          </p>
+          <form id="last_name_form" method="post" style="display:none;">
+            {% csrf_token %}
+            <input type="hidden" name="field" value="last_name">
+            <input type="text" name="value" class="form-control mb-2" value="{{ request.user.last_name }}">
+            <button type="submit" class="btn btn-success btn-sm">Сохранить</button>
+          </form>
+
+          <!-- Email -->
+          <p><strong>Email:</strong> {{ request.user.email }}
+            <button class="btn btn-sm btn-outline-primary" onclick="toggleForm('email_form')">Изменить</button>
+          </p>
+          <form id="email_form" method="post" style="display:none;">
+            {% csrf_token %}
+            <input type="hidden" name="field" value="email">
+            <input type="email" name="value" class="form-control mb-2" value="{{ request.user.email }}">
+            <button type="submit" class="btn btn-success btn-sm">Сохранить</button>
+          </form>
+
+        </div>
+        <div class="card-footer text-center">
+          <a href="{% url 'logout' %}" class="btn btn-danger">Выйти</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+function toggleForm(id) {
+  const form = document.getElementById(id);
+  form.style.display = form.style.display === "none" ? "block" : "none";
+}
+</script>
+{% endblock %}

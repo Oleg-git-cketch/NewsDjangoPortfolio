@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{% block title %}MySite{% endblock %}</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+  <header class="navbar navbar-expand-lg bg-white shadow-sm py-3">
+    <div class="container d-flex justify-content-between align-items-center">
+
+      <a href="/" class="navbar-brand fs-4 fw-bold text-primary">MySite</a>
+
+      <ul class="navbar-nav d-flex flex-row gap-3">
+                <li class="nav-item">
+          <a href="/" class="nav-link text-dark fw-medium">Главная</a>
+        </li>
+        <li class="nav-item">
+          <a href="/categories" class="nav-link text-dark fw-medium">Категории</a>
+        </li>
+        <li class="nav-item">
+          <a href="/about" class="nav-link text-dark fw-medium">О нас</a>
+        </li>
+        <li class="nav-item">
+          <a href="/contacts" class="nav-link text-dark fw-medium">Контакты</a>
+        </li>
+
+      </ul>
+
+      <div class="d-flex align-items-center gap-3">
+        {% if user.is_authenticated %}
+          <a href="/profile" class="d-flex align-items-center text-decoration-none">
+            {% if user.user_model and user.user_model.user_photo %}
+              <img src="{{ user.user_model.user_photo.url }}"
+                   alt="avatar" width="42" height="42"
+                   class="rounded-circle border border-2 border-primary shadow-sm">
+            {% else %}
+              <img src="/static/default-avatar.png"
+                   alt="avatar" width="42" height="42"
+                   class="rounded-circle border border-2 border-secondary shadow-sm">
+            {% endif %}
+          </a>
+          <a href="/logout" class="btn btn-sm btn-outline-danger px-3">Logout</a>
+        {% else %}
+          <a href="/login" class="btn btn-sm btn-outline-primary px-3">Login</a>
+          <a href="/register" class="btn btn-sm btn-primary px-3">Sign Up</a>
+        {% endif %}
+      </div>
+    </div>
+  </header>
+
+  <main class="container py-4">
+    {% block content %}{% endblock %}
+  </main>
+
+</body>
+</html>

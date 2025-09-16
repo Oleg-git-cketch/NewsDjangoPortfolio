@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}{{ category.category_name }}{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <h2 class="mb-4 text-primary">{{ category.category_name }}</h2>
+
+    {% if category.new_set.all %}
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+            {% for n in category.new_set.all %}
+            <div class="col">
+                <div class="card h-100 shadow-sm">
+                    {% if n.new_photo %}
+                        <img src="{{ n.new_photo.url }}" class="card-img-top" alt="обложка новости" style="height:200px; object-fit:cover;">
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ n.new_name }}</h5>
+                        <p class="card-text text-muted">{{ n.new_desc|truncatechars:100 }}</p>
+                        <a href="/new/{{ n.id }}" class="btn btn-primary">Подробнее</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="text-muted">В этой категории пока нет новостей.</p>
+    {% endif %}
+</div>
+{% endblock %}

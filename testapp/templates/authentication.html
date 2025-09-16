@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block title %}Авторизация{% endblock %}
+
+{% block content %}
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+  <main class="form-signin w-100" style="max-width: 330px;">
+  <form method="post" class="p-4 bg-white rounded shadow">
+    {% csrf_token %}
+    <h1 class="h3 mb-3 fw-normal text-center">Please sign in</h1>
+
+    <!-- Общие ошибки формы (например, неверный логин/пароль) -->
+    {% if form.non_field_errors %}
+      <div class="alert alert-danger">
+        {% for error in form.non_field_errors %}
+          <div>{{ error }}</div>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    <div class="form-floating mb-3">
+      <input type="text" name="{{ form.username.html_name }}" class="form-control"
+             id="floatingInput" placeholder="Username" value="{{ form.username.value|default:'' }}">
+      <label for="floatingInput">Username</label>
+      {% if form.username.errors %}
+        <div class="text-danger small">{{ form.username.errors }}</div>
+      {% endif %}
+    </div>
+
+    <div class="form-floating mb-3">
+      <input type="password" name="{{ form.password.html_name }}" class="form-control"
+             id="floatingPassword" placeholder="Password">
+      <label for="floatingPassword">Password</label>
+      {% if form.password.errors %}
+        <div class="text-danger small">{{ form.password.errors }}</div>
+      {% endif %}
+    </div>
+
+    <!-- Remember me -->
+    <div class="form-check text-start mb-3">
+      <input class="form-check-input" type="checkbox" id="checkDefault">
+      <label class="form-check-label" for="checkDefault">Remember me</label>
+    </div>
+
+    <button class="btn btn-primary w-100 py-2 mt-2" type="submit">Sign in</button>
+    <p class="mt-5 mb-3 text-body-secondary text-center">&copy; 2017–2025</p>
+  </form>
+</main>
+</div>
+{% endblock %}
